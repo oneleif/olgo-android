@@ -1,7 +1,8 @@
-import 'dart:math';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jade/RoadsterModel.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String theMessage;
     try {
       theMessage = await platform.invokeMethod("getTest");
-    } on Exception catch (e) {
+    } on Exception {
       theMessage = "This was an error";
     }
 
@@ -52,7 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       print("pvLog");
       roadster = await platform.invokeMethod("getRoadster");
-    } on Exception catch (e) {
+      var model = RoadsterModel.fromJson(json.decode(roadster));
+      roadster = model.name;
+    } on Exception {
       roadster = "This was an error";
     }
 

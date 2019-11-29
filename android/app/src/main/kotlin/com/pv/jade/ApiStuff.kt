@@ -1,10 +1,8 @@
 package com.pv.jade
 
-import android.util.Log
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class ApiStuff {
@@ -16,7 +14,7 @@ class ApiStuff {
     suspend fun roadster(): String = withContext(Dispatchers.Default) {
 
         val roadster = endpoint + "roadster"
-        
+
         val (_, _, result) = roadster.httpGet().responseString()
 
         when (result) {
