@@ -16,9 +16,7 @@ class ApiStuff {
     suspend fun roadster(): String = withContext(Dispatchers.Default) {
 
         val roadster = endpoint + "roadster"
-
-        Log.d("pv", "About to make roadster call")
-
+        
         val (_, _, result) = roadster.httpGet().responseString()
 
         when (result) {

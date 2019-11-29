@@ -6,6 +6,9 @@ import android.util.Log
 import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : FlutterActivity() {
@@ -17,15 +20,13 @@ class MainActivity : FlutterActivity() {
         GeneratedPluginRegistrant.registerWith(this)
 
         MethodChannel(flutterView, "flutter/test").setMethodCallHandler { call, result ->
-
-            Log.d("pv", "Here we were called")
-
+            
             when (call.method) {
                 "getTest" -> {
                     result.success("Called getTest")
                 }
                 "getRoadster" -> {
-                    runBlocking {
+                    GlobalScope.launch(Dispatchers.Main) {
                         result.success(apiStuff.roadster())
                     }
                 }
